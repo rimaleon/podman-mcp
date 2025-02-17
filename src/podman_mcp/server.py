@@ -6,9 +6,9 @@ import mcp.types as types
 from mcp.server import NotificationOptions, Server
 from mcp.server.models import InitializationOptions
 import mcp.server.stdio
-from .handlers import DockerHandlers
+from .handlers import PodmanHandlers
 
-server = Server("docker-mcp")
+server = Server("podman-mcp")
 
 
 @server.list_prompts()
@@ -16,16 +16,16 @@ async def handle_list_prompts() -> List[types.Prompt]:
     return [
         types.Prompt(
             name="deploy-stack",
-            description="Generate and deploy a Docker stack based on requirements",
+            description="Generate and deploy a Podman stack based on requirements",
             arguments=[
                 types.PromptArgument(
                     name="requirements",
-                    description="Description of the desired Docker stack",
+                    description="Description of the desired Podman stack",
                     required=True
                 ),
                 types.PromptArgument(
                     name="project_name",
-                    description="Name for the Docker Compose project",
+                    description="Name for the Podman Compose project",
                     required=True
                 )
             ]
@@ -42,10 +42,10 @@ async def handle_get_prompt(name: str, arguments: Dict[str, str] | None) -> type
         raise ValueError("Missing required arguments")
 
     system_message = (
-        "You are a Docker deployment specialist. Generate appropriate Docker Compose YAML or "
+        "You are a Podman deployment specialist. Generate appropriate Podman Compose YAML or "
         "container configurations based on user requirements. For simple single-container "
         "deployments, use the create-container tool. For multi-container deployments, generate "
-        "a docker-compose.yml and use the deploy-compose tool. To access logs, first use the "
+        "a podman-compose.yml and use the deploy-compose tool. To access logs, first use the "
         "list-containers tool to discover running containers, then use the get-logs tool to "
         "retrieve logs for a specific container."
     )
@@ -70,7 +70,7 @@ Analyze if this needs a single container or multiple containers. Then:
 }}"""
 
     return types.GetPromptResult(
-        description="Generate and deploy a Docker stack",
+        description="Generate and deploy a Podman stack",
         messages=[
             types.PromptMessage(
                 role="system",
@@ -95,7 +95,7 @@ async def handle_list_tools() -> List[types.Tool]:
     return [
         types.Tool(
             name="create-container",
-            description="Create a new standalone Docker container",
+            description="Create a new standalone Podman container",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -115,7 +115,7 @@ async def handle_list_tools() -> List[types.Tool]:
         ),
         types.Tool(
             name="deploy-compose",
-            description="Deploy a Docker Compose stack",
+            description="Deploy a Podman Compose stack",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -127,7 +127,7 @@ async def handle_list_tools() -> List[types.Tool]:
         ),
         types.Tool(
             name="get-logs",
-            description="Retrieve the latest logs for a specified Docker container",
+            description="Retrieve the latest logs for a specified Podman container",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -138,7 +138,7 @@ async def handle_list_tools() -> List[types.Tool]:
         ),
         types.Tool(
             name="list-containers",
-            description="List all Docker containers",
+            description="List all Podman containers",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -154,13 +154,13 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any] | None) -> List[
 
     try:
         if name == "create-container":
-            return await DockerHandlers.handle_create_container(arguments)
+            return await PodmanHandlers.handle_create_container(arguments)
         elif name == "deploy-compose":
-            return await DockerHandlers.handle_deploy_compose(arguments)
+            return await PodmanHandlers.handle_deploy_compose(arguments)
         elif name == "get-logs":
-            return await DockerHandlers.handle_get_logs(arguments)
+            return await PodmanHandlers.handle_get_logs(arguments)
         elif name == "list-containers":
-            return await DockerHandlers.handle_list_containers(arguments)
+            return await PodmanHandlers.handle_list_containers(arguments)
         else:
             raise ValueError(f"Unknown tool: {name}")
     except Exception as e:
@@ -176,7 +176,7 @@ async def main():
             read_stream,
             write_stream,
             InitializationOptions(
-                server_name="docker-mcp",
+                server_name="podman-mcp",
                 server_version="0.1.0",
                 capabilities=server.get_capabilities(
                     notification_options=NotificationOptions(),

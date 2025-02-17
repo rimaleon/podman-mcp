@@ -1,14 +1,14 @@
 [project]
-name = "docker-mcp"
+name = "podman-mcp"
 version = "0.1.0"
-description = "A docker MCP server"
+description = "A Podman MCP server"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "httpx>=0.28.0",
     "mcp>=1.0.0",
     "python-dotenv>=1.0.1",
-    "python-on-whales>=0.67.0",
+    "podman>=4.9.0",
     "pyyaml>=6.0.1"
 ]
 
@@ -21,4 +21,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-docker-mcp = "docker_mcp:main"
+podman-mcp = "podman_mcp:main"

@@ -1,16 +1,16 @@
-# 🐳 docker-mcp
+# 🐳 podman-mcp
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![smithery badge](https://smithery.ai/badge/docker-mcp)](https://smithery.ai/protocol/docker-mcp)
+[![smithery badge](https://smithery.ai/badge/podman-mcp)](https://smithery.ai/protocol/podman-mcp)
 
-A powerful Model Context Protocol (MCP) server for Docker operations, enabling seamless container and compose stack management through Claude AI.
+A powerful Model Context Protocol (MCP) server for Podman operations, enabling seamless container and compose stack management through Claude AI.
 
 ## ✨ Features
 
 - 🚀 Container creation and instantiation
-- 📦 Docker Compose stack deployment
+- 📦 Podman Compose stack deployment
 - 🔍 Container logs retrieval
 - 📊 Container listing and status monitoring
 
@@ -58,7 +58,7 @@ npx @smithery/cli install docker-mcp --client claude
 
 - UV (package manager)
 - Python 3.12+
-- Docker Desktop or Docker Engine
+- Podman
 - Claude Desktop
 
 ### Installation
@@ -76,13 +76,13 @@ Add the server configuration to your Claude Desktop config file:
 ```json
 {
   "mcpServers": {
-    "docker-mcp": {
+    "podman-mcp": {
       "command": "uv",
       "args": [
         "--directory",
-        "<path-to-docker-mcp>",
+        "<path-to-podman-mcp>",
         "run",
-        "docker-mcp"
+        "podman-mcp"
       ]
     }
   }
@@ -96,10 +96,10 @@ Add the server configuration to your Claude Desktop config file:
 ```json
 {
   "mcpServers": {
-    "docker-mcp": {
+    "podman-mcp": {
       "command": "uvx",
       "args": [
-        "docker-mcp"
+        "podman-mcp"
       ]
     }
   }
@@ -113,8 +113,8 @@ Add the server configuration to your Claude Desktop config file:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/QuantGeekDev/docker-mcp.git
-cd docker-mcp
+git clone https://github.com/QuantGeekDev/podman-mcp.git
+cd podman-mcp
 ```
 
 2. Create and activate a virtual environment:
@@ -133,7 +133,7 @@ uv sync
 Launch the MCP Inspector for debugging:
 
 ```bash
-npx @modelcontextprotocol/inspector uv --directory <path-to-docker-mcp> run docker-mcp
+npx @modelcontextprotocol/inspector uv --directory <path-to-podman-mcp> run podman-mcp
 ```
 
 The Inspector will provide a URL to access the debugging interface.
@@ -143,7 +143,7 @@ The Inspector will provide a URL to access the debugging interface.
 The server provides the following tools:
 
 ### create-container
-Creates a standalone Docker container
+Creates a standalone Podman container
 ```json
 {
     "image": "image-name",
@@ -154,7 +154,7 @@ Creates a standalone Docker container
 ```
 
 ### deploy-compose
-Deploys a Docker Compose stack
+Deploys a Podman Compose stack
 ```json
 {
     "project_name": "example-stack",
@@ -171,7 +171,7 @@ Retrieves logs from a specific container
 ```
 
 ### list-containers
-Lists all Docker containers
+Lists all Podman containers
 ```json
 {}
 ```
