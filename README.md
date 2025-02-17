@@ -15,7 +15,7 @@ A powerful Model Context Protocol (MCP) server for Podman operations, enabling s
 - 📊 Container listing and status monitoring
 
 ### 🎬 Demos
-#### Deploying a Docker Compose Stack
+#### Deploying a Podman Compose Stack
 
 
 https://github.com/user-attachments/assets/b5f6e40a-542b-4a39-ba12-7fdf803ee278
@@ -36,10 +36,10 @@ To try this in Claude Desktop app, add this to your claude config files:
 ```json
 {
   "mcpServers": {
-    "docker-mcp": {
+    "podman-mcp": {
       "command": "uvx",
       "args": [
-        "docker-mcp"
+        "podman-mcp"
       ]
     }
   }
@@ -48,10 +48,10 @@ To try this in Claude Desktop app, add this to your claude config files:
 
 ### Installing via Smithery
 
-To install Docker MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/protocol/docker-mcp):
+To install Podman MCP for Claude Desktop automatically via [Smithery](https://smithery.ai/protocol/podman-mcp):
 
 ```bash
-npx @smithery/cli install docker-mcp --client claude
+npx @smithery/cli install podman-mcp --client claude
 ```
 
 ### Prerequisites
@@ -59,9 +59,18 @@ npx @smithery/cli install docker-mcp --client claude
 - UV (package manager)
 - Python 3.12+
 - Podman
+- Podman Compose (for multi-container deployments)
 - Claude Desktop
 
 ### Installation
+
+#### Podman Setup
+
+1. Install Podman following the [official installation guide](https://podman.io/docs/installation)
+2. For multi-container deployments, install Podman Compose:
+   ```bash
+   pip install podman-compose
+   ```
 
 #### Claude Desktop Configuration
 
@@ -187,7 +196,7 @@ Lists all Podman containers
 
 ## 🤝 Contributing
 
-1. Fork the repository from [docker-mcp](https://github.com/QuantGeekDev/docker-mcp)
+1. Fork the repository from [podman-mcp](https://github.com/QuantGeekDev/podman-mcp)
 2. Create your feature branch
 3. Commit your changes
 4. Push to the branch
